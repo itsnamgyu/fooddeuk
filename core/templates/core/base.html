@@ -30,10 +30,10 @@
   <meta property="og:url" content="">
   <meta property="og:title" content="Fooddeuk">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'core/img/og-image.jpg' %}">
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'core/img/og_image.jpg' %}">
   <meta property="og:description" content="Fooddeuk is love. Fooddeuk is life.">
 
-  <link rel="shortcut icon" type="image/png" href="/core/static/core/img/favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="{% static 'core/img/favicon.png' %}"/>
 
   {% block head %}
   {% endblock head %}
