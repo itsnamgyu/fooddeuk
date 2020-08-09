@@ -1,0 +1,58 @@
+{% extends 'dt_content/console/base.html' %}
+{% load static %}
+{% load dt_content %}
+{% load blurb %}
+
+{% block head %}
+<title>django-template</title>
+<link rel="stylesheet" href="{% static 'dt_content/css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'dt_content/css/example/blurb.css' %}">
+
+{% endblock head%}
+{% block body %}
+<div class="container py-4 mb-4">
+  <h2 class="mb-1">Blurb Test</h2>
+  {% if dt_content_preview_mode %}
+  <div>
+    <div class="d-flex">
+      <p class="m-0">You are currently in preview mode.</p>
+      <a href="{% url 'dt-content:toggle-preview-mode' %}?mode=false&next={{ request.path }}" class="ml-auto">Exit
+        Preview Mode</a>
+    </div>
+  </div>
+  {% else %}
+  <div>
+    <div class="d-flex">
+      <p class="m-0">You are currently viewing this page as an admin. Only admins will see the editor
+        controls
+        below.</p>
+      <a href="{% url 'dt-content:toggle-preview-mode' %}?mode=true&next={{ request.path }}" class="ml-auto">View in
+        Preview Mode</a>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<div class="container">
+  <h3>Normal Rich Text Blurb</h3>
+  <div class="dt-content-example-outline">
+    {% blurb 'dt-content-example-blurb' as blurb %}
+    {% include blurb.template_name %}
+  </div>
+  <h3>Plain Text Blurb With Custom CSS</h3>
+  <div class="dt-content-example-outline">
+    {% blurb 'dt-content-example-blurb-plain' plain_text=True as blurb %}
+    <div class="custom-blurb">
+      {% include blurb.template_name %}
+    </div>
+  </div>
+</div>
+
+<div class="container mb-5">
+  <a href="{% url 'dt-content:index' %}">
+    <button class="btn btn-primary mt-5">Back</button>
+  </a>
+</div>
+{% endblock body %}
+{% block body_script %}
+{% endblock body_script %}

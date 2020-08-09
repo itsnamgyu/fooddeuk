@@ -1,0 +1,9 @@
+{% load account %}{% load i18n %}{% autoescape off %}
+{% blocktrans %}
+Use the link below to confirm your email address and activate your account.
+
+{{ activate_url }}
+
+If you didn't request this email, you can safely ignore it.
+{% endblocktrans %}
+{% endautoescape %}

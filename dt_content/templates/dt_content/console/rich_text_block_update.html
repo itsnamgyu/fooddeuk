@@ -1,0 +1,46 @@
+{# Context Variables #}
+{# object: ContentBlock #}
+
+{% extends 'dt_content/console/base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      {% with block=object %}
+      {% include 'dt_content/snippets/breadcrumbs/block.html' %}
+      {% endwith %}
+    </ol>
+  </nav>
+</div>
+
+<div class="container py-4">
+  <div class="mb-4">
+    {% if object.key %}
+    <div class="header-label">
+      {{ object.block_type }}
+    </div>
+    <h3>{{ object.key }}</h3>
+    {% else %}
+    <h3>{{ object.block_type }}</h3>
+    {% endif %}
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-11 col-lg-10 col-xl-9">
+      <form method="post">
+        <div class="mb-4">
+          {% csrf_token %}
+          {{ form.media }}
+          {% bootstrap_field form.content %}
+          {% bootstrap_form_errors form type='non_fields' %}
+        </div>
+        <div class="d-flex">
+          <button class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

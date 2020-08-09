@@ -1,0 +1,19 @@
+{# Context Variables #}
+{# section?: ContentSection #}
+
+{% with menu=section.menu %}
+{% if menu %} {# block in menu #}
+{% include 'dt_content/snippets/breadcrumbs/menu.html' %}
+<li class="breadcrumb-item active" aria-current="page">New {{ block_type }}</li>
+
+{% elif section %} {# block in static section #}
+{% include 'dt_content/snippets/breadcrumbs/section.html' %}
+<li class="breadcrumb-item active" aria-current="page">New {{ block_type }}</li>
+
+{% else %} {# static block #}
+<li class="breadcrumb-item"><a href="{% url 'dt-content:index' %}">Console</a></li>
+<li class="breadcrumb-item"><a href="{% url 'dt-content:content-block-list' %}">Static Blocks</a></li>
+<li class="breadcrumb-item active" aria-current="page">New {{ block_type }}</li>
+
+{% endif %}
+{% endwith %}

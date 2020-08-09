@@ -1,0 +1,66 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.outer-container {
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .outer-container {
+    padding-top: 5rem;
+    padding-bottom: 0rem;
+  }
+}
+
+.inner-container {
+  padding: 0rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .inner-container {
+    margin: 3rem;
+    border: 1px solid #eee;
+    padding: 3rem 3rem;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05), 0 8px 32px rgba(0, 0, 0, 0.05),
+      0 8px 64px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.logo {
+  max-width: 12rem;
+  max-height: 4rem;
+  margin-bottom: 2rem;
+}
+
+form label {
+  font-size: 0.875rem;
+}
+
+input,
+.form-control {
+  border-radius: 0;
+}
+
+.copyright-container {
+  padding: 0.5rem 0.75rem;
+}
+
+.copyright {
+  font-size: 0.75rem;
+  color: #444;
+}
+
+@media (min-width: 768px) {
+  .copyright-container {
+    padding: 1rem 1.5rem;
+  }
+
+  .copyright {
+    font-size: 0.875rem;
+  }
+}

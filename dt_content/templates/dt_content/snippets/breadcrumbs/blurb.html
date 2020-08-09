@@ -1,0 +1,7 @@
+{# Context Variables #}
+{# blurb: Blurb #}
+
+<li class="breadcrumb-item"><a href="{% url 'dt-content:index' %}">Console</a></li>
+<li class="breadcrumb-item"><a href="{% url 'dt-content:blurb-list' %}">All Blurbs</a></li>
+<li class="breadcrumb-item"><a href="{% url 'dt-content:blurb-update' blurb.id %}">{{ blurb.display_name }}</a>
+</li>

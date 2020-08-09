@@ -1,0 +1,88 @@
+{% extends 'base/base.html' %}
+{% load bootstrap4 %}
+{% load admin_link %}
+{% load static %}
+{% load dt_content %}
+{% load image_blurb %}
+
+{% block head %}
+<title>Django Template</title>
+<link rel="stylesheet" href="{% static 'dt_content/css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/navbar.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/header.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/footer.css' %}">
+{% endblock head%}
+
+{% block body %}
+
+{% include 'core/navbar.html' %}
+
+<div class="header header-lg">
+  {% image_blurb 'index/background' placeholder='core/img/background.jpg' as image_blurb %}
+  <div class="header-background" style="background-image: url('{{ image_blurb.src }}')">
+  </div>
+  <div class="header-tint"></div>
+  <div class="header-content">
+    <div class="container h-100 d-flex flex-column justify-content-center">
+      <div class="hero-title">django-template</div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-3">
+  {% include image_blurb.update_link_template_name %}
+</div>
+
+<div class="content">
+  <div class="container py-5">
+    <h2>This is a placeholder app for django-template</h2>
+    <p><i class="fas fa-rocket"></i> Good luck on your project!</p>
+
+    {% bootstrap_messages as messages %}
+    {% if messages.strip %} {# #}
+    <h4 class="mt-4">Here are some Bootstrap messages</h4>
+    <p>{{ messages }}</p>
+    {% endif %}
+
+    {% if dt_stripe %}
+    <h4 class="mt-4">dt-stripe</h4>
+    <a href="{% url 'dt-stripe:index' %}">
+      <button class="btn btn-primary mt-2">Admin Console</button>
+    </a>
+    {% endif %}
+
+    <h4 class="mt-4">dt-content</h4>
+    <a href="{% url 'dt-content:index' %}" class="btn btn-primary mt-2">
+      Admin Console
+    </a>
+
+    {% if simple_sendgrid %}
+    <h4 class="mt-4">simple-sendgrid</h4>
+    <a href="{% url 'simple-sendgrid:index' %}" class="btn btn-primary mt-2">
+      Admin Console
+    </a>
+    {% endif %}
+
+    <h4 class="mt-4">Test out the admin_link app</h4>
+    <p>These are admin links related to users.</p>
+    {% if not request.user.is_superuser %}
+    <p>You may need to sign in as admin to see these links.</p>
+    {% endif %}
+    {% admin_link request.user 'changelist' %}
+    {% admin_link request.user 'add' %}
+    {% admin_link request.user 'change' %}
+    {% admin_link request.user 'delete' %}
+
+    <h4 class="mt-4">Support The Project 💌</h4>
+    <a href="https://github.com/itsnamgyu/django-template">
+      <button class="btn btn-dark px-3 py-2 mt-2"><i class="fab fa-github mr-2"></i>View on GitHub</button>
+    </a>
+  </div>
+</div>
+
+{% include 'core/footer.html' %}
+
+{% endblock body %}
+{% block body_script %}
+{% endblock body_script %}

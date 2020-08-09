@@ -1,0 +1,37 @@
+{% extends 'dt_content/console/base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      {% with menu=parent %}
+      {% include 'dt_content/snippets/breadcrumbs/menu.html' %}
+      {% endwith %}
+      <li class="breadcrumb-item active" aria-current="page">New Submenu</li>
+    </ol>
+  </nav>
+</div>
+
+<div class="container py-4">
+  <div class="mb-4 d-flex flex-col align-items-center">
+    <a href="{{ parent.update_url }}" class="text-decoration-none">
+      <div class="header-label">Menu</div>
+      <h2 class="mt-0">{{ parent.title }}</h2>
+    </a>
+    <i class="fas fa-caret-right mx-3"></i>
+    <div>
+      <div class="header-label">Submenu</div>
+      <h2 class="mt-0">New Submenu</h2>
+    </div>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-4">
+      {% include 'dt_content/snippets/menu_form_row.html' %}
+    </div>
+    <button class="btn btn-primary">Create Submenu</button>
+  </form>
+</div>
+{% endblock %}

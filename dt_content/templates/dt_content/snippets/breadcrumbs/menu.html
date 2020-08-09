@@ -1,0 +1,22 @@
+{# Context Variables #}
+{# block_type: string #}
+{# menu: Menu #}
+
+{% with parent=menu.parent %}
+{% if parent %} {# menu: Child #}
+<li class="breadcrumb-item"><a href="{% url 'dt-content:index' %}">Console</a></li>
+<li class="breadcrumb-item"><a href="{% url 'dt-content:menu-list' %}">All Menus</a></li>
+<li class="breadcrumb-item">
+  <a href="{% url 'dt-content:menu-update' parent.id %}">{{ parent.title}}</a>
+</li>
+<li class="breadcrumb-item">
+  <a href="{% url 'dt-content:submenu-update' menu.id %}">{{ menu.title}}</a>
+</li>
+{% else %} {# menu: Parent #}
+<li class="breadcrumb-item"><a href="{% url 'dt-content:index' %}">Console</a></li>
+<li class="breadcrumb-item"><a href="{% url 'dt-content:menu-list' %}">All Menus</a></li>
+<li class="breadcrumb-item">
+  <a href="{% url 'dt-content:menu-update' menu.id %}">{{ menu.title}}</a>
+</li>
+{% endif %}
+{% endwith %}

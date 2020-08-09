@@ -1,0 +1,40 @@
+{% extends 'dt_content/console/base.html' %}
+
+{% block body %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'dt-content:index' %}">Console</a></li>
+      <li class="breadcrumb-item active" aria-current="page">All Menus</li>
+    </ol>
+  </nav>
+</div>
+
+<div class="container py-4">
+  <div class="d-flex align-items-center mb-4">
+    <h3 class="m-0 mr-3">All Menus</h3>
+    <a href="{% url 'dt-content:menu-create' %}" class="text-decoration-none d-block">
+      <button class="btn btn-primary">Create Menu</button>
+    </a>
+  </div>
+
+  {% if request.GET.success == 'true' %}
+  <div class="alert alert-success">Update successful</div>
+  {% endif %}
+  <div class="row">
+    {% for menu in menu_list %}
+    <div class="col-12">
+      <div class="card d-flex flex-row align-items-center mb-3 ">
+        <a href="{% url 'dt-content:menu-update' menu.id %}" class="text-decoration-none">
+          <h4 class="m-0 mr-3">{{ menu.title }}</h4>
+        </a>
+        <p class="m-0 mr-3"> /{{ menu.url_slug }} </p>
+        <p class="m-0 mr-3"> {{ menu.children.count }} submenu(s)</p>
+        <a href="{% url 'dt-content:menu-delete' menu.id %}" class="ml-auto btn btn-outline-danger">Delete</a>
+      </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+shopt -s extglob
+echo "Files to auto-format:"
+ls !(venv)/**/*.py
+echo ""
+echo -n "Press enter to continue or Ctrl+C to exit..."
+read
+echo "Hang on!"
+black !(venv)/**/*.py

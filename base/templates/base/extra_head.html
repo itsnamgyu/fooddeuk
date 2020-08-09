@@ -1,0 +1,11 @@
+{# Override this template in another app or global template directory #}
+{% load static %}
+<title>Django Template</title>
+
+<meta property="og:url" content="">
+<meta property="og:title" content="Django Template">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'base/img/og-image.jpg' %}">
+<meta property="og:description" content="Django template project made by Namgyu Ho (its@namgyu.io)">
+
+<link rel="shortcut icon" type="image/png" href="/static/base/img/favicon.png" />

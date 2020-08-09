@@ -1,0 +1,13 @@
+{# Context Variables #}
+{# section: ContentSection #}
+
+{% with menu=section.menu %}
+{% if menu %} {# Non-static section #}
+{% include 'dt_content/snippets/breadcrumbs/menu.html' %}
+{% else %} {# Static section #}
+<li class="breadcrumb-item"><a href="{% url 'dt-content:index' %}">Console</a></li>
+<li class="breadcrumb-item"><a href="{% url 'dt-content:content-section-list' %}">Static Sections</a></li>
+<li class="breadcrumb-item"><a href="{% url 'dt-content:content-section-update' section.id %}">{{ section.key }}</a>
+</li>
+{% endif %}
+{% endwith %}

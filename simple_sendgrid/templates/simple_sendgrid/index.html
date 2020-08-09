@@ -1,0 +1,15 @@
+{% extends 'simple_sendgrid/base.html' %}
+
+{% block body %}
+<div class="container py-4">
+  <h3>Console</h3>
+  <div class="row">
+    <!-- MANAGEMENT -->
+    <div class="col-12 col-md-5">
+      <a href="{% url 'simple-sendgrid:test' %}" class="btn btn-light btn-block btn-lg text-left mb-2 px-4">
+        Email Test
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

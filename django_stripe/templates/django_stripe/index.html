@@ -1,0 +1,90 @@
+<head>
+  <title>Django Stripe Test</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+</head>
+
+<body>
+  <div class="container pb-5">
+    <div class="row justify-content-start">
+      <div class="col-12 mt-5">
+        <h2>django-stripe Test</h2>
+        <p>Created by Namgyu Ho</p>
+        <a class="d-block text-dark" href="mailto:itsnamgyu@gmail.com"><i
+            class="fas fa-envelope mr-2"></i>itsnamgyu@gmail.com</a>
+        <a class="d-block text-dark" href="https://github.com/itsnamgyu"><i class="fab fa-github mr-2"></i>itsnamgyu</a>
+        <p></p>
+      </div>
+      <div class="col-12 col-md-11 col-lg-10 col-xl-9 mt-5">
+        <h3>Stripe Webhook Endpoints</h3>
+        <h4>checkout.session.completed</h4>
+        <p>{{ url_webhook_checkout_completed }}</p>
+      </div>
+      <div class="col-12 col-md-11 col-lg-10 col-xl-9 mt-5">
+        <h3>Test Checkouts</h3>
+        <p>This page is intended for admins and developers to test the checkout functionality</p>
+        <p>Note, amounts are provided in a currency’s smallest unit. For example, to charge $10 USD, provide an amount
+          value of 1000 (i.e, 1000 cents).</p>
+        {% for checkout in test_checkouts %}
+        <div class="border rounded mt-4 p-3">
+          <h4>{{ checkout.name }}
+            {% if checkout.status == checkout.COMPLETE %}
+            <span class="badge badge-success ml-2">Complete</span>
+            {% elif checkout.status == checkout.MULTIPLE_CHARGES %}
+            <span class="badge badge-danger ml-2">Multiple Charges</span>
+            {% elif checkout.status == checkout.INCOMPLETE %}
+            <span class="badge badge-secondary ml-2">Incomplete</span>
+            {% endif %}
+          </h4>
+          <div class="row mt-4">
+            <div class="col-6">
+              <h5>Description</h5>
+              {% if checkout.description %}
+              <p>{{ checkout.description }}</p>
+              {% else %}
+              <p>None</p>
+              {% endif %}
+            </div>
+            <div class="col-6">
+              <h5>Created</h5>
+              <p>{{ checkout.date_created }}</p>
+            </div>
+            <div class="col-6">
+              <h5>Amount</h5>
+              <p>{{ checkout.amount}}</p>
+            </div>
+            <div class="col-6">
+              <h5>Currency</h5>
+              <p>{{ checkout.currency|upper }}</p>
+            </div>
+          </div>
+          {% if checkout.status == 'IC' %}
+          <div class="w-100 text-right">
+            <a href="{% url 'django_stripe:test_checkout_payment' checkout.id %}">
+              <button class="btn btn-primary btn-dark">Checkout</button>
+            </a>
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <div class="w-100 text-right mt-4">
+          <a href="{% url 'django_stripe:test_checkout_create' %}">
+            <button class="btn btn-primary">Create Checkout</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src=" https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+</body>

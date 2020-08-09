@@ -1,0 +1,8 @@
+{# Context Variables #}
+{# image_blurb: ImageBlurb #}
+
+<li class="breadcrumb-item"><a href="{% url 'dt-content:index' %}">Console</a></li>
+<li class="breadcrumb-item"><a href="{% url 'dt-content:image-blurb-list' %}">All Image Blurbs</a></li>
+<li class="breadcrumb-item">
+    <a href="{% url 'dt-content:image-blurb-update' image_blurb.id %}">{{ image_blurb.display_name }}</a>
+</li>

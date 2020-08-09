@@ -1,0 +1,24 @@
+{% extends 'dt_content/console/base.html' %}
+
+{% block body %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      {% include 'dt_content/snippets/breadcrumbs/menu.html' %}
+    </ol>
+  </nav>
+</div>
+
+<div class="container py-4">
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-4">
+      <h3>Delete {{ menu }}?</h3>
+    </div>
+    <a href="{{ next_url }}" class="btn btn-secondary">
+      Cancel
+    </a>
+    <button class="btn btn-danger" type="submit">Delete</button>
+  </form>
+</div>
+{% endblock %}

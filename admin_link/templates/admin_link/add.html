@@ -1,0 +1,25 @@
+<a href="{{ url }}" class="admin-link">
+  <button class="btn btn-sm btn-outline-dark">
+    <i class="fas fa-plus mr-1"></i>
+    {% if label %}
+    {{ label }}
+    {% else %}
+    Create {{ model_name }}
+    {% endif %}
+  </button>
+</a>
+
+<!-- ADMIN_LINK -->
+<style>
+  .admin-link {
+    margin-bottom: 0.5rem;
+  }
+
+  .admin-link+.admin-link {
+    margin-left: 0.5rem;
+  }
+
+  .admin-link:hover {
+    text-decoration: none;
+  }
+</style>

@@ -1,0 +1,47 @@
+{% extends 'dt_content/console/base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      {% include 'dt_content/snippets/breadcrumbs/section.html' %}
+    </ol>
+  </nav>
+</div>
+
+<div class="container py-4">
+  <div class="mb-5">
+    <div class="header-label">
+      Section
+    </div>
+    <h2 class="mt-0">{{ section }}</h2>
+
+    {% if section.static_location %}
+    <div class="header-label">
+      Initial location
+    </div>
+    <a href="{{ section.static_location }}" class="text-decoration-none">
+      <h4 class="text-primary">
+        {{ section.static_location }}
+      </h4>
+    </a>
+    {% endif %}
+  </div>
+
+  <div class="mb-4">
+    <h3>Blocks</h3>
+    <div class="row">
+      {% if request.GET.success == 'true' %}
+      <div class="col-12">
+        <div class="alert alert-success">Update successful</div>
+      </div>
+      {% endif %}
+
+      {% for block in section.blocks %}
+      {% include 'dt_content/snippets/block_listing_column.html' %}
+      {% endfor %}
+      {% include 'dt_content/snippets/add_block_column.html' %}
+    </div>
+  </div>
+  {% endblock %}

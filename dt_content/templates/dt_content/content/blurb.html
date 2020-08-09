@@ -1,0 +1,55 @@
+{# Context Variables #}
+{# blurb: Blurb #}
+
+<span id="{{ blurb.html_id }}"></span>
+{% if request.user.is_superuser and not dt_content_preview_mode %}
+{% if blurb.plain_text %}
+<!-- PLAIN TEXT BLURB ADMIN -->
+<a href=" {% url 'dt-content:blurb-update' blurb.id %}?location={{ request.path }}&next={{ request.path }}"
+  class="dt-content-blurb-inline-update-link">
+  {% if blurb.content %}
+  <i class="fas fa-edit"></i>
+  {{ blurb.content|linebreaksbr }}
+  {% else %}
+  <i class="fas fa-edit"></i>
+  Enter initial content
+  {% endif %}
+</a>
+{% else %}
+<!-- RICH BLURB ADMIN -->
+<div class="d-flex">
+  <div class="w-100">
+    {% if blurb.content %}
+    {{ blurb.content|safe }}
+    <a href="{% url 'dt-content:blurb-update' blurb.id %}?location={{ request.path }}&next={{ request.path }}"
+      class="dt-content-blurb-update-link">
+      <i class="fas fa-edit"></i>
+      Edit content
+    </a>
+    {% else %}
+    <a href="{% url 'dt-content:blurb-update' blurb.id %}?location={{ request.path }}&next={{ request.path }}"
+      class="dt-content-blurb-update-link">
+      <i class="fas fa-edit"></i>
+      Enter initial content</strong>
+    </a>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+{% else %}
+{% if blurb.content %}
+{% if blurb.plain_text %}
+<!-- PLAIN TEXT BLURB -->
+{{ blurb.content|linebreaksbr }}
+{% else %}
+<!-- RICH BLURB -->
+<div class="d-flex">
+  <div class="w-100">
+    {{ blurb.content|safe }}
+  </div>
+</div>
+{% endif %}
+{% else %}
+-
+{% endif %}
+{% endif %}

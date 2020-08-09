@@ -1,0 +1,25 @@
+{% extends 'simple_sendgrid/base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+<div class="container py-4">
+  <div class="row">
+    <div class="col-12 col-md-4 mb-4">
+      <h2>Mail Test</h3>
+        <form method="post">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          <button class="btn btn-primary" type="submit">Send Mail</button>
+        </form>
+    </div>
+    {% if message %}
+    <div class="col-12 col-md-8 mb-4">
+      <h2>Results</h2>
+      <div style="font-family: monospace;">
+        {{ message|escape|linebreaksbr }}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

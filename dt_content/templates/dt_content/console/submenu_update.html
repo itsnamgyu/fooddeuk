@@ -1,0 +1,51 @@
+{% extends 'dt_content/console/base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      {% include 'dt_content/snippets/breadcrumbs/menu.html' %}
+    </ol>
+  </nav>
+</div>
+
+<div class="container py-4">
+  {% if request.GET.success == 'true' %}
+  <div class="alert alert-success">Update successful</div>
+  {% endif %}
+
+  <div class="mb-4 d-flex flex-col align-items-center">
+    <a href="{{ parent.update_url }}" class="text-decoration-none">
+      <div class="header-label">Menu</div>
+      <h2 class="mt-0">{{ menu.parent.title }}</h2>
+    </a>
+    <i class="fas fa-caret-right mx-3"></i>
+    <div>
+      <div class="header-label">Submenu</div>
+      <h2 class="mt-0">{{ menu.title }}</h2>
+    </div>
+  </div>
+
+  <form action="{{ request.path }}" method="post" class="mb-5">
+    {% csrf_token %}
+    {% include "dt_content/snippets/menu_form_row.html" %}
+    <a href="{% url 'dt-content:menu-delete' menu.id %}" class="btn btn-danger">Delete</a>
+    <button class="btn btn-primary" type="submit">Update</button>
+    <a href="{% url 'dt-content:example-site-page' menu.url_path %}" class="btn btn-primary">Preview</a>
+  </form>
+
+  <div class="mb-4">
+    <h3>Content Blocks</h3>
+    <div class="row">
+      {% with section=menu.get_content_section %}
+      {% for block in section.blocks %}
+      {% include 'dt_content/snippets/block_listing_column.html' %}
+      {% endfor %}
+
+      {% include 'dt_content/snippets/add_block_column.html' %}
+      {% endwith %}
+    </div>
+  </div>
+</div>
+{% endblock %}

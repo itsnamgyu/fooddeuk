@@ -1,0 +1,94 @@
+.header {
+  position: relative;
+  text-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.5);
+  height: 12rem;
+}
+
+.header-lg {
+  height: 24rem;
+}
+
+.header-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  background: no-repeat 50% 50%;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+.header-tint {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.header-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  padding-top: 2rem;
+}
+
+.header-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+}
+
+.header-title a {
+  text-decoration: none;
+  color: white;
+}
+
+.header-title .fas {
+  font-size: 75%;
+}
+
+@media (min-width: 350px) {
+  .header {
+    height: 14rem;
+  }
+
+  .header-lg {
+    height: 32rem;
+  }
+
+  .header-title {
+    color: white;
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .header {
+    height: 18rem;
+  }
+
+  .header-lg {
+    height: 36rem;
+  }
+
+  .header-title {
+    color: white;
+    font-size: 2.25rem;
+  }
+}

@@ -1,0 +1,60 @@
+{% load static %}
+
+<nav class="fixed-top">
+  <div class="navbar-top">
+    <div class="container">
+      <div class="d-flex justify-content-end">
+        {% if request.user.is_authenticated %}
+        {% if request.user.is_staff %}
+        {% if dt_content_preview_mode %}
+        <a class="btn navbar-top-button"
+          href="{% url 'dt-content:toggle-preview-mode' %}?mode=false&next={{ request.path }}">
+          EXIT PREVIEW MODE
+        </a>
+        {% else %}
+        <a class="btn navbar-top-button"
+          href="{% url 'dt-content:toggle-preview-mode' %}?mode=true&next={{ request.path }}">
+          ENTER PREVIEW MODE
+        </a>
+        {% endif %}
+        {% endif %}
+        <a class="btn navbar-top-button" href="{% url 'account_logout' %}">SIGN OUT</a>
+        {% else %}
+        <a class="btn navbar-top-button" href="{% url 'account_login' %}">LOG IN</a>
+        <a class="btn navbar-top-button" href="{% url 'account_signup' %}">SIGN UP</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="navbar-middle navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand nav-title" href="{% url 'core:index' %}">
+        Django Template
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          {% for menu in nav_menu_list %}
+          {% if not menu.disabled %}
+          <li class="nav-item">
+            <a class="nav-link {% if menu.active %}active{% endif %}" href="{{ menu.href }}">{{ menu.title }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+          {% if request.user.is_staff %}
+          {% if not dt_content_preview_mode %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dt-content:menu-create' %}?next={{ request.path }}">
+              <i class="fas fa-cog"></i> Add Menu
+            </a>
+          </li>
+          {% endif %}
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

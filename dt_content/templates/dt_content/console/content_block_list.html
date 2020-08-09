@@ -1,0 +1,32 @@
+{% extends 'dt_content/console/base.html' %}
+
+{% block body %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'dt-content:index' %}">Console</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Static Blocks</li>
+    </ol>
+  </nav>
+</div>
+
+<div class="container py-4">
+  <h3>All Static Blocks</h3>
+
+  {% if request.GET.success == 'true' %}
+  <div class="alert alert-success">Update successful</div>
+  {% endif %}
+  <div class="row">
+    {% for block in content_block_list %}
+    <div class="col-12 col-sm-6">
+      <a href="{{ block.update_url }}" class="text-decoration-none d-block">
+        <div class="card">
+          <p class="block-label">{{ block.block_type }}</p>
+          <h4>{{block.key }}</h4>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

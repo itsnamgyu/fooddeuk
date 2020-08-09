@@ -1,0 +1,101 @@
+{% extends 'dt_content/example/site/base.html' %}
+{% load static %}
+{% load dt_content %}
+
+{% block head %}
+<title>django-template</title>
+<link rel="stylesheet" href="{% static 'dt_content/css/example/styles.css' %}">
+<link rel="stylesheet" href="{% static 'dt_content/css/example/navbar.css' %}">
+<link rel="stylesheet" href="{% static 'dt_content/css/example/header.css' %}">
+<link rel="stylesheet" href="{% static 'dt_content/css/example/footer.css' %}">
+{% endblock head%}
+{% block body %}
+
+{% include 'dt_content/example/site/navbar.html' %}
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-background" style="background-image: url('{% static 'dt_content/img/example/background.jpg' %}')">
+  </div>
+  <div class="header-tint"></div>
+  <div class="header-content">
+    <div class="container header-container">
+      {% if nav_menu.parent %} {# Child #}
+      <div class="header-title d-flex flex-row">
+        <a href="{{ nav_menu.parent.href }}" class="mr-3">{{ nav_menu.parent.title }}</a>
+        <i class="fas fa-chevron-right mr-3"></i>
+        <a href="{{ nav_menu.href }}" class="mr-3">{{ nav_menu.title }}</a>
+      </div>
+      {% else %} {# Parent #}
+      <div class="header-title">
+        <a href="{{ nav_menu.href }}" class="mr-3">{{ nav_menu.title }}</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- SUBMENU LIST -->
+{% if nav_menu.children  %}
+<div class="py-4 border-bottom">
+  <div class="container">
+    <!--<h2>{{ nav_menu.title }}</h2>-->
+    <h2>Submenus</h2>
+    {% for child in nav_menu.children %}
+    <a href="{{ child.href }}" class="submenu-link">
+      <i class="fas fa-chevron-circle-right"> </i>
+      {{ child.title }}
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% if request.user.is_staff %}
+{# Show these options even in preview mode #}
+<div class="py-4 border-bottom">
+  <div class="container">
+    <h3>Admin Options</h3>
+    {% if not nav_menu.parent %}
+    <a href="{% url 'dt-content:submenu-create' %}?parent={{ nav_menu.id }}" class="submenu-link">
+      <i class="fas fa-cog"> </i>
+      Add Submenu
+    </a>
+    <a href="{% url 'dt-content:menu-update' nav_menu.id %}" class="submenu-link">
+      <i class="fas fa-cog"> </i>
+      Manage Menu
+    </a>
+
+    {% else %}
+    <a href="{% url 'dt-content:submenu-update' nav_menu.id %}" class="submenu-link">
+      <i class="fas fa-cog"> </i>
+      Manage Submenu
+    </a>
+    {% endif %}
+
+    {% if dt_content_preview_mode %}
+    <a href="{% url 'dt-content:toggle-preview-mode' %}?mode=false&next={{ request.path }}" class="submenu-link">
+      <i class="fas fa-eye"> </i>
+      Exit Preview Mode
+    </a>
+    {% else %}
+    <a href="{% url 'dt-content:toggle-preview-mode' %}?mode=true&next={{ request.path }}" class="submenu-link">
+      <i class="fas fa-eye"> </i>
+      View in Preview Mode
+    </a>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<!-- CONTENT -->
+<div class="content">
+  {% include content_section.template_name %}
+</div>
+
+{% include 'dt_content/example/site/footer.html' %}
+
+{% endblock body %}
+
+{% block body_script %}
+{% endblock body_script %}

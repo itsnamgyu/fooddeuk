@@ -1,0 +1,48 @@
+{% extends 'dt_content/console/base.html' %}
+
+{% block body %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'dt-content:index' %}">Console</a></li>
+      <li class="breadcrumb-item active" aria-current="page">All Image Blurbs</li>
+    </ol>
+  </nav>
+</div>
+
+<div class="container py-4">
+  <div class="d-flex align-items-center mb-4">
+    <h3 class="m-0 mr-3">All Image Blurbs</h3>
+  </div>
+
+  {% if request.GET.success == 'true' %}
+  <div class="alert alert-success">Update successful</div>
+  {% endif %}
+  <div class="row">
+    {% for image_blurb in image_blurb_list %}
+    <div class="col-12 col-md-6 mb-3">
+      <div class="card">
+        <a href="{{ image_blurb.update_url }}" class="text-decoration-none">
+          <h4 class="mb-2 mr-3">{{ image_blurb.display_name }}</h4>
+        </a>
+        {% if image_blurb.last_known_location %}
+        <p class="mr-3"><i class="fas fa-link mr-2"></i>{{ image_blurb.last_known_location }} </p>
+        {% endif %}
+        <img class="image-blurb-preview-image mb-3" src="{{ image_blurb.src }}">
+        <div class="d-flex justify-content-end">
+          {% if image_blurb.last_known_location %}
+          <a href="{{ image_blurb.href }}" class="ml-2 btn btn-outline-secondary">
+            View on Page
+          </a>
+          {% endif %}
+          <a href="{{ image_blurb.update_url }}" class="ml-2 btn btn-outline-primary">
+            Edit
+          </a>
+        </div>
+      </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

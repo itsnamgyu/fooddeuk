@@ -1,0 +1,15 @@
+.footer {
+  background: black;
+}
+
+.footer-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #aaa;
+}
+
+.footer-copyright {
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: #ddd;
+}

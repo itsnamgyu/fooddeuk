@@ -1,0 +1,16 @@
+{# Context Variables #}
+{# image_blurb: Blurb #}
+{# image_blurb_update_message?: string #}
+
+<span id="{{ image_blurb.html_id }}"></span>
+{% if request.user.is_superuser and not dt_content_preview_mode %}
+<a href="{{ image_blurb.update_url }}?location={{ request.path }}&next={{ request.path }}"
+  class="dt-content-image-blurb-update-link btn btn-outline-primary">
+  <i class="fas fa-edit"></i>
+  {% if image_blurb_update_message %}
+  {{ image_blurb_update_message }}
+  {% else %}
+  Update Image
+  {% endif %}
+</a>
+{% endif %}

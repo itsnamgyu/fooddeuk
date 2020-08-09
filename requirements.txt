@@ -1,0 +1,21 @@
+django ~= 2.0
+black
+pylint
+pylint-django
+django-dotenv
+django-bootstrap4
+django-allauth
+django-debug-toolbar
+# Live reload for development
+django-livesync
+# Amazon SES (Email)
+django-ses
+# Sendgrid (Email)
+django-sendgrid-v5
+# Stripe
+stripe
+# Carousel
+django-versatileimagefield
+# Dt Content
+django-model-utils
+django-summernote

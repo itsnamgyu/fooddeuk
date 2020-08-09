@@ -1,0 +1,26 @@
+{# Context Variables #}
+{# menu: Menu #}
+
+{% with parent=menu.parent %}
+{% if parent %} {# menu: Child #}
+<div>
+  <div class="header-label">
+    Menu
+  </div>
+  <h2 class="mt-0">{{ parent.title }}</h2>
+</div>
+<div>
+  <div class="header-label">
+    Submenu
+  </div>
+  <h2 class="mt-0">{{ menu.title }}</h2>
+</div>
+{% else %} {# menu: Parent #}
+<div>
+  <div class="header-label">
+    Menu
+  </div>
+  <h2 class="mt-0">{{ menu.title }}</h2>
+</div>
+{% endif %}
+{% endwith %}

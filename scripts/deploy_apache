@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+
+trap 'exit' ERR
+
+# help message
+usage() {
+    cat <<EOF
+Usage:
+  deploy_apache --host=example.com
+  deploy_apache --help
+
+Other Options:
+  --apache-config      the location of the 000-default.conf file for wsgi
+                       virtual host deployment
+
+The --host options is required
+EOF
+};
+
+APACHE_CONFIG="/etc/apache2/sites-enabled/000-default.conf"
+
+# argument parsing
+args="$(getopt -o '' --long help,host:,apache-config: -n "$0" -- "$@")"
+eval "set -- $args"
+while true; do
+    case "$1" in
+        --help) usage; exit 0;;
+        --host) HOST="$2"; shift; shift;;
+		--apache-config) APACHE_CONFIG="$2"; shift; shift;;
+        --) shift; break;;
+    esac
+done
+
+# check remaining arguments
+if [ "$#" -gt 0 ]; then
+    usage >&2
+    exit 1
+fi
+
+# check argument validity
+if [[ -z "$HOST" ]]; then
+    echo >&2
+    usage >&2
+    exit 1
+fi
+if [[ ! -f "${APACHE_CONFIG}" ]]; then
+	echo "\
+APACHE_CONFIG is set to invalid file ${APACHE_CONFIG}. Check your Apache
+installation or set the correct path for the config file using the
+--apache-config option." >&2
+    echo >&2
+    usage >&2
+    exit 1
+fi
+
+# check PROJECT_DIR
+if [ -z "${PROJECT_DIR}" ]; then
+	PROJECT_DIR=`pwd`
+	echo "Setting PROJECT_DIR to current directory ${PROJECT_DIR}"
+fi
+
+	if [ -f "${PROJECT_DIR}/app/wsgi.py" ]; then
+		echo "Deploy Django project at \"${PROJECT_DIR}\" for Apache using WSGI."
+		echo -n "Press enter to continue or Ctrl+C to exit..."
+		read
+		echo "Hang on!"
+	else
+	echo "\
+Invalid PROJECT_DIR (\"${PROJECT_DIR}\"). \"\$PROJECT_DIR/app/wsgi.py\" must be a valid file.
+Set PROJECT_DIR to a valid directory or run this script from the root of your project."
+	exit 1
+fi
+
+echo "
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+pip install mod-wsgi
+sudo mkdir -p /var/www/${HOST}
+sudo chown `whoami`:www-data /var/www/${HOST}
+sudo chmod 770 /var/www/${HOST}
+touch db.sqlite3
+sudo chown www-data db.sqlite3
+sudo chmod g+w db.sqlite3
+sudo chown www-data .
+" | bash
+
+if grep -q "ServerName ${HOST}" "${APACHE_CONFIG}"; then
+	echo "Settings already exists in ${APACHE_CONFIG}."
+else
+	echo "<VirtualHost *:80>
+	ServerName ${HOST}
+	ServerAlias www.${HOST}
+	ServerAdmin support@${HOST}
+
+	# Serving static files
+	Alias /robots.txt /var/www/${HOST}/static/robots.txt
+	Alias /favicon.ico /var/www/${HOST}/static/favicon.ico
+
+	Alias /static/ /var/www/${HOST}/static/
+
+	<Directory /var/www/${HOST}/static>
+	Require all granted
+	</Directory>
+	
+	Alias /media/ /var/www/${HOST}/media/
+
+	<Directory /var/www/${HOST}/media>
+	Require all granted
+	</Directory>
+
+	<Directory ${PROJECT_DIR}/app>
+	<Files wsgi.py>
+	Require all granted
+	</Files>
+	</Directory>
+
+	LoadModule wsgi_module "${PROJECT_DIR}/venv/lib/python3.6/site-packages/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so"
+
+	WSGIDaemonProcess ${HOST} processes=2 threads=15 display-name=%{GROUP} python-path=${PROJECT_DIR} python-home=${PROJECT_DIR}/venv
+	WSGIProcessGroup ${HOST}
+
+	WSGIScriptAlias / ${PROJECT_DIR}/app/wsgi.py
+</VirtualHost>" | sudo tee -a ${APACHE_CONFIG}
+fi

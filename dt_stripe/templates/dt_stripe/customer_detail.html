@@ -1,0 +1,107 @@
+{% extends 'dt_stripe/base.html' %}
+
+{% load static %}
+{% load bootstrap4 %}
+{% load dt_stripe %}
+
+{% block head %}
+{% endblock head %}
+
+{% block body %}
+<div class="container py-4">
+  <div class="row">
+    <div class="col-12 col-md-11 col-lg-10 col-xl-8 mb-4">
+      <a href="{% url 'dt-stripe:customer-list' %}" class="btn btn-link">
+        <i class="fas fa-chevron-left mr-2"></i>Back
+      </a>
+      <h2>Customer: {{ customer.name }}</h2>
+      {% if customer.description %}
+      <p>{{ customer.description }}</p>
+      {% endif %}
+      <p>Source status: {{ customer.get_source_status_display }}</p>
+    </div>
+    <div class="col-12 col-md-6 mb-4">
+      <h3>Place order</h3>
+
+      {% if order_success %}
+      <div class="alert alert-primary">
+        Your order was successful
+      </div>
+      {% endif %}
+
+      {% if order_error %}
+      <div class="alert alert-danger">
+        {{ order_error }}
+      </div>
+      {% endif %}
+
+      <form id="order-form" action="{% url 'dt-stripe:customer-detail' customer.id %}?action=order" method="post">
+        {% csrf_token %}
+        {% bootstrap_form_errors order_form 'non_fields' %}
+        {% bootstrap_field  order_form.sku %}
+        <div class="form-row">
+          <label for="card-element">
+            Credit or debit card
+          </label>
+          <div id="card-element" class="mb-3 w-100">
+          </div>
+          <div id="card-errors" role="alert">
+          </div>
+        </div>
+        {% bootstrap_field  order_form.save_source %}
+        <button class="btn btn-primary" type="submit">Confirm</button>
+      </form>
+    </div>
+
+    <div class="col-12 col-md-6 mb-4">
+      <h3>Subscribe</h3>
+
+      {% if subscribe_success %}
+      <div class="alert alert-primary">
+        Your subscription was successful
+      </div>
+      {% endif %}
+
+      {% if subscribe_error %}
+      <div class="alert alert-danger">
+        {{ subscribe_error}}
+      </div>
+      {% endif %}
+
+      <form action="{% url 'dt-stripe:customer-detail' customer.id %}?action=subscribe" method="post">
+        {% csrf_token %}
+        {% bootstrap_form_errors subscribe_form 'non_fields' %}
+        {% bootstrap_field  subscribe_form.plan %}
+        <button class="btn btn-primary" type="submit">Confirm</button>
+      </form>
+    </div>
+
+    <div class="col-12 col-md-6 mb-4">
+      <h3>Unsubscribe</h3>
+
+      {% if unsubscribe_success %}
+      <div class="alert alert-primary">
+        You have been successfully unsubscribed
+      </div>
+      {% endif %}
+
+      {% if unsubscribe_error %}
+      <div class="alert alert-danger">
+        {{ unsubscribe_error}}
+      </div>
+      {% endif %}
+
+      <form action="{% url 'dt-stripe:customer-detail' customer.id %}?action=unsubscribe" method="post">
+        {% csrf_token %}
+        {% bootstrap_form unsubscribe_form %}
+        <button class="btn btn-primary" type="submit">Confirm</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock body %}
+
+{% block body_script %}
+{% dt_stripe_init %}
+{% dt_stripe_mount_card_element 'order-form' 'card-element' 'card-errors' %}
+{% endblock body_script %}

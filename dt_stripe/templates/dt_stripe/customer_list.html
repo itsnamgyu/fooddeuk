@@ -1,0 +1,33 @@
+{% extends 'dt_stripe/base.html' %}
+
+{% block head %}
+{% endblock head %}
+
+{% block body %}
+<div class="container py-4">
+  {% include 'dt_stripe/snippets/commands.html'%}
+  {% include 'dt_stripe/snippets/object_list.html'%}
+  <div class="row my-5">
+    <div class="col-12 col-md-11 col-lg-10 col-xl-8">
+      <h3>Customer List</h3>
+      {% for customer in customer_list %}
+      <div class="card">
+        <a href="{% url 'dt-stripe:customer-detail' customer.id %}" class="text-decoration-none">
+          <h4>{{ customer.name }}</h4>
+          {% if customer.description %}
+          <p>{{ customer.description }}</p>
+          {% endif %}
+        </a>
+      </div>
+      {% endfor %}
+      <div class="text-right">
+        <a href="{% url 'dt-stripe:customer-create' %}" class="btn btn-primary">
+          Create customer
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
+{% block body_script %}
+{% endblock body_script %}

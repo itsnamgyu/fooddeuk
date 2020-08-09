@@ -1,0 +1,72 @@
+{% load bootstrap4 %}
+{% load stripe %}
+
+<head>
+  <title>Test Checkout Payment - Django Stripe</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-11 col-lg-10 col-xl-9 mt-5">
+        <h3>{{ checkout.name }}
+          {% if checkout.status == checkout.COMPLETE %}
+          <span class="badge badge-success ml-2">Complete</span>
+          {% elif checkout.status == checkout.MULTIPLE_CHARGES %}
+          <span class="badge badge-danger ml-2">Multiple Charges</span>
+          {% elif checkout.status == checkout.INCOMPLETE %}
+          <span class="badge badge-secondary ml-2">Incomplete</span>
+          {% endif %}
+        </h3>
+        <div class="row mt-4">
+          <div class="col-6">
+            <h5>Description</h5>
+            {% if checkout.description %}
+            <p>{{ checkout.description }}</p>
+            {% else %}
+            <p>None</p>
+            {% endif %}
+          </div>
+          <div class="col-6">
+            <h5>Created</h5>
+            <p>{{ checkout.date_created }}</p>
+          </div>
+          <div class="col-6">
+            <h5>Amount</h5>
+            <p>{{ checkout.amount}}</p>
+          </div>
+          <div class="col-6">
+            <h5>Currency</h5>
+            <p>{{ checkout.currency|upper }}</p>
+          </div>
+        </div>
+        <div class="w-100 d-flex flex-row justify-content-end">
+          <a class="d-block" href="{% url 'django_stripe:index' %}">
+            <button class="btn btn-secondary">Back</button>
+          </a>
+          {% if checkout.status == 'IC' %}
+          <button id="checkout-button" class="btn btn-primary btn-dark ml-2">Proceed to Stripe Checkout</button>
+          {% endif %}
+        </div>
+        <span id="checkout-error" class="d-block text-danger mt-3"></span>
+      </div>
+    </div>
+  </div>
+  }
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+
+  {% stripe_standalone checkout_session '#checkout-button' '#checkout-error' %}
+</body>

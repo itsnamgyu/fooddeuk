@@ -1,0 +1,58 @@
+{% extends 'dt_content/console/base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      {% include 'dt_content/snippets/breadcrumbs/image_blurb.html' %}
+    </ol>
+  </nav>
+</div>
+
+<div class="container py-4">
+  <div class="header-label">
+    Image Blurb
+  </div>
+  <h2 class="mt-0">{{ image_blurb.display_name }}</h2>
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="header-label">
+        Last Known Location
+      </div>
+      {% if image_blurb.last_known_location%}
+      <a href="{{ image_blurb.href }}" class="text-decoration-none">
+        <h3 class="text-primary mb-3">
+          {{ image_blurb.last_known_location }}
+        </h3>
+      </a>
+      {% else %}
+      <h3>Unknown</h3>
+      {% endif %}
+      {% if image_blurb.src %}
+      <div class="header-label">
+        Currrent Image
+        {% if not image_blurb.image %}
+        (Placeholder)
+        {% endif %}
+      </div>
+      <img src="{{ image_blurb.src }}" class="image-blurb-default-image">
+      {% endif %}
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="mb-4">
+        {% if request.GET.success == 'true' %}
+        <div class="alert alert-success">Update successful</div>
+        {% endif %}
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.media }}
+          {% bootstrap_form form %}
+          <button class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

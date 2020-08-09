@@ -1,0 +1,57 @@
+{% extends 'dt_content/example/site/base.html' %}
+{% load static %}
+{% load dt_content %}
+
+{% block head %}
+<title>django-template</title>
+<link rel="stylesheet" href="{% static 'dt_content/css/example/styles.css' %}">
+<link rel="stylesheet" href="{% static 'dt_content/css/example/navbar.css' %}">
+<link rel="stylesheet" href="{% static 'dt_content/css/example/header.css' %}">
+<link rel="stylesheet" href="{% static 'dt_content/css/example/footer.css' %}">
+{% endblock head%}
+
+{% block body %}
+
+{% include 'dt_content/example/site/navbar.html' %}
+
+<div class="header header-lg">
+  <div class="header-background" style="background-image: url('{% static 'dt_content/img/example/background.jpg' %}')">
+  </div>
+  <div class="header-tint"></div>
+  <div class="header-content">
+    <div class="container h-100 d-flex flex-column justify-content-center">
+      <div class="hero-title">dt-content Example Site</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container py-5">
+    <div class="mb-5">
+      <h1>dt-content Example Site</h1>
+      <p>
+        This is an auto generated example site.
+      </p>
+    </div>
+
+    <div class="mb-5">
+      <h2>Actions</h2>
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <a href="{% url 'dt-content:index' %}" class="btn btn-light btn-block">
+            Return To Console
+          </a>
+          <a href="{% url 'dt-content:menu-list' %}" class="btn btn-light btn-block">
+            Manage Site
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'dt_content/example/site/footer.html' %}
+
+{% endblock body %}
+{% block body_script %}
+{% endblock body_script %}

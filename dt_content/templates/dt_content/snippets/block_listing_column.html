@@ -1,0 +1,12 @@
+{# Context Variables #}
+{# block: ContentBlock #}
+<div class="col-12">
+  <a href="{{ block.update_url }}" class="text-decoration-none d-block">
+    <div class="card d-flex flex-row mb-3 align-items-center">
+      <h4 class="m-0">{{ block.block_type }}</h4>
+      <a href="{% url 'dt-content:content-block-delete' block.id %}" class="ml-auto">
+        <button class="btn btn-outline-danger">Delete</button>
+      </a>
+    </div>
+  </a>
+</div>

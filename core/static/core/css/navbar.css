@@ -1,0 +1,89 @@
+.navbar {
+  padding: 0.75rem 1.25rem;
+}
+
+.navbar-top {
+  background: black;
+  padding: 0.375rem 0;
+}
+
+.navbar-top-button {
+  font-size: 0.6875rem;
+  color: white;
+  padding: 0;
+}
+
+.navbar-top-button + .navbar-top-button {
+  margin-left: 0.375rem;
+}
+
+.navbar-top-button:hover {
+  color: #ccc;
+}
+
+@media (min-width: 360px) {
+  .navbar-top-button {
+    font-size: 0.75rem;
+  }
+
+  .navbar-top-button + .navbar-top-button {
+    margin-left: 0.5rem;
+  }
+}
+
+.navbar-middle {
+  background: #000d;
+}
+
+.nav-logo {
+  height: 2.5rem;
+}
+
+.nav-title {
+  font-weight: 700;
+  font-size: 0.9375rem !important;
+}
+
+.nav-item {
+  font-size: 0.9375rem;
+}
+
+.navbar-nav {
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 350px) {
+  .nav-logo {
+    height: 2.5rem;
+  }
+
+  .nav-title {
+    font-size: 1rem !important;
+  }
+
+  .nav-item {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .nav-logo {
+    height: 3rem;
+  }
+
+  .nav-title {
+    font-size: 1.25rem !important;
+  }
+
+  .nav-item {
+    font-size: 1rem;
+  }
+
+  .navbar-nav {
+    margin-top: 0;
+  }
+}
+
+.navbar-toggler {
+  border: none;
+}

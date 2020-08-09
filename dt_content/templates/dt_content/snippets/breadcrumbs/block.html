@@ -1,0 +1,14 @@
+{# Context Variables #}
+{# section: ContentSection #}
+{# block: ContentBlock #}
+
+{% with section=block.section %}
+{% if section %}
+{% include 'dt_content/snippets/breadcrumbs/section.html' %}
+<li class="breadcrumb-item active" aria-current="page">{{ block.block_type }}</li>
+{% else %} {# static block #}
+<li class="breadcrumb-item"><a href="{% url 'dt-content:index' %}">Console</a></li>
+<li class="breadcrumb-item"><a href="{% url 'dt-content:content-block-list' %}">Static Blocks</a></li>
+<li class="breadcrumb-item"><a href="{{ block.update_url }}">{{ block.key }} </a></li>
+{% endif %}
+{% endwith %}

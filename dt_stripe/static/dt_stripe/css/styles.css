@@ -1,0 +1,76 @@
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+h4 {
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child {
+  margin-top: 0;
+}
+
+@media (min-width: 576px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+}
+
+p {
+  font-size: 0.9375rem;
+  color: #444;
+}
+
+p + p {
+  margin-top: 0.5rem;
+}
+
+.card {
+  border-radius: 1rem;
+  border-color: #ddd;
+  padding: 1.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025),
+    0 0.5rem 2rem rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+}
+
+.card *:last-child {
+  margin-bottom: 0;
+}

@@ -1,0 +1,57 @@
+{# Context variables #}
+{# content_section: ContentSection #}
+
+{% if request.user.is_staff and not dt_content_preview_mode %}
+{# ADMIN VIEW #}
+<div class="py-4">
+
+  <div class="dt-content-section-header">
+    <div class="mr-2 mb-3">
+      <i class="fas fa-cog mr-2"></i>
+      Content Section: {{ content_section.key }} {{ content_section.blocks.count }}
+      Block(s)
+    </div>
+    {% if content_section.key %} {# Static section #}
+    <a href="{% url 'dt-content:content-section-update' content_section.id %}?next={{ request.path }}"
+      class="btn btn-light mr-2 mb-3">
+      <i class="fas fa-bars"></i>
+      Manage
+    </a>
+    {% else %} {# Non-static section: update menu instead of section #}
+    <a href="{{ content_section.menu.update_url }}?next={{ request.path }}" class="btn btn-light mr-2 mb-3">
+      <i class="fas fa-bars"></i>
+      Manage
+    </a>
+    {% endif %}
+    <button type="button" class="btn btn-light mb-3" data-toggle="modal" data-target="#add-block-modal">
+      <i class="fas fa-plus"></i>
+      Add Block
+    </button>
+  </div>
+  <div>
+    {% for content_block in content_section.blocks.all %}
+    {% include content_block.template_name %}
+    {% endfor %}
+  </div>
+  {% with modal_id='add-block-modal' %}
+  {% include 'dt_content/snippets/add_block_modal.html' %}
+  {% endwith %}
+</div>
+{% else %}
+{# NORMAL USER VIEW #}
+{% with content_section.blocks.all as blocks %}
+<div>
+  {% for content_block in blocks %}
+  {% include content_block.template_name %}
+  {% endfor %}
+  {% if not blocks %}
+  <div class="container">
+    <div class="dt-content-empty-wrapper">
+      <i class="fas fa-sticky-note dt-content-empty-icon"></i>
+      <div class="dt-content-empty-label">This section is empty.</div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endwith %}
+{% endif %}
