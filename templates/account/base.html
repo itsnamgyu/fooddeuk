@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block head %}
+<title>{% block head_title %}{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'account/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'account/css/extra.css' %}">
+{% block extra_head %}
+{% endblock %}
+{% endblock %}
+
+{% block body %}
+<div class="outer-container">
+  <div class="container">
+    <div class="inner-container">
+      <a href="/">
+        <img src="{% static 'account/img/logo.png' %}" class="logo">
+      </a>
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+</div>
+
+<div class="copyright-container mt-auto">
+  <div class="copyright">
+    {% include "account/snippets/copyright.html" %}
+  </div>
+</div>
+{% endblock %}
+
+{% block body_script %}
+{% endblock body_script %}

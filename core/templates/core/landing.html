@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/navbar.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/landing.css' %}">
+{% endblock head %}
+
+{% block body %}
+  <div class="landing-container">
+    <img class="landing-gif animate__animated animate__fadeIn animate__slower animate__delay-1s"
+         src="{% static 'core/img/food_filter.gif' %}">
+    <div class="landing-content animate__animated animate__fadeIn animate__slower animate__delay-2s">
+      <div class="container">
+        <div class="title">Fooddeuk</div>
+        <div class="subtitle mb-3">Fooddeuk is love. Fooddeuk is life.</div>
+        <!--<a href="https://google.com" class="btn btn-landing">
+          Vote Now<i class="fas fa-chevron-right ml-2"></i>
+        </a>-->
+        <a href="https://github.com/itsnamgyu/fooddeuk" class="btn btn-landing">
+          <i class="fab fa-github mr-2"></i>Github
+        </a>
+      </div>
+    </div>
+    <div class="landing-copyright">
+      {% now 'Y' %} Fooddeuk © All rights reserved.
+    </div>
+  </div>
+
+{% endblock body %}
+{% block body_script %}
+{% endblock body_script %}

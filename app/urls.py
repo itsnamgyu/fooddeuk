@@ -22,20 +22,12 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("core.urls")),
     path("accounts/", include("allauth.urls")),
-    path("dt-content/", include("dt_content.urls")),
     path("summernote/", include("django_summernote.urls")),
     # path('', include('social_django.urls', namespace='social')),  # enable for social login
 ]
 
-if settings.STRIPE_ENABLED:
-    urlpatterns.append(path("stripe/", include("django_stripe.urls")))
-
 if settings.SIMPLE_SENDGRID_ENABLED:
     urlpatterns.append(path("simple-sendgrid/", include("simple_sendgrid.urls")))
-
-if settings.DT_STRIPE_ENABLED:
-    urlpatterns.append(path("dt-stripe/", include("dt_stripe.urls")))
-
 
 if settings.DEBUG:
     import debug_toolbar

@@ -1,42 +1,97 @@
-.content {
-  min-height: 60vh;
+h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 1.25rem;
+  color: rgb(202, 0, 78);
+}
+@media (min-width: 576px) {
+  h1 {
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+  }
 }
 
-.submenu {
-  padding: 3rem 0;
-  border-bottom: 1px solid #eee;
+h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  color: #444;
 }
 
-.submenu-link {
-  display: block;
+@media (min-width: 576px) {
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 1.25rem;
+  }
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+@media (min-width: 576px) {
+  h3 {
+    font-size: 1.375rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+h4 {
   font-size: 1rem;
-  margin-bottom: 0.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #444;
 }
 
-.submenu-link:hover {
-  text-decoration: none;
+@media (min-width: 576px) {
+  h4 {
+    font-size: 1.25rem;
+  }
 }
 
-.submenu-link:last-child {
+h1,
+h2,
+h3,
+h4 {
+  margin-bottom: 0.75rem;
+}
+
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child {
   margin-bottom: 0;
 }
 
-.hero-title {
-  font-size: 1.75rem;
-  font-weight: 900;
-  color: white;
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child {
+  margin-top: 0;
 }
 
-@media (min-width: 992px) {
-  .content {
-    min-height: 75vh;
-  }
+p,
+li {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #666;
+}
 
-  .submenu-link {
+@media (min-width: 576px) {
+  p,
+  li {
     font-size: 1.125rem;
   }
+}
 
-  .hero-title {
-    font-size: 2.5rem;
-  }
+p {
+  margin-bottom: 0.75rem;
+}
+
+a:hover {
+  text-decoration: none;
 }

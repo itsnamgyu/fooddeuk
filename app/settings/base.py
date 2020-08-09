@@ -56,13 +56,9 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "bootstrap4",
-    "dt_content",
     "django_summernote",
     # Carousel
     "versatileimagefield",
-    "carousel",
-    # Admin link
-    "admin_link",
     # Main project
     "core",
 ]
@@ -72,17 +68,11 @@ SENDGRID_ENABLED = fetch_env("SENDGRID_ENABLED", "FALSE").upper() == "TRUE"
 SIMPLE_SENDGRID_ENABLED = (
     fetch_env("SIMPLE_SENDGRID_ENABLED", "FALSE").upper() == "TRUE"
 )
-STRIPE_ENABLED = fetch_env("STRIPE_ENABLED", "FALSE").upper() == "TRUE"
-DT_STRIPE_ENABLED = fetch_env("DT_STRIPE_ENABLED", "FALSE").upper() == "TRUE"
 
 if DEBUG:
     # Live reload for development
     INSTALLED_APPS.insert(0, "livesync")
     INSTALLED_APPS.append("debug_toolbar")
-if STRIPE_ENABLED:
-    INSTALLED_APPS.append("django_stripe")
-if DT_STRIPE_ENABLED:
-    INSTALLED_APPS.append("dt_stripe")
 if SIMPLE_SENDGRID_ENABLED:
     INSTALLED_APPS.append("simple_sendgrid")
 
@@ -264,12 +254,5 @@ if SIMPLE_SENDGRID_ENABLED:
 
 if [SES_ENABLED, SENDGRID_ENABLED].count(True) > 1:
     raise ImproperlyConfigured("Multiple email integrations enabled.")
-
-if DT_STRIPE_ENABLED or STRIPE_ENABLED:
-    STRIPE_STATIC_HOST = require_env("STATIC_HOST")
-    STRIPE_PUBLIC_KEY = require_env("STRIPE_PUBLIC_KEY")
-    STRIPE_SECRET_KEY = require_env("STRIPE_SECRET_KEY")
-    STRIPE_WEBHOOK_SIGNING_SECRET = require_env("STRIPE_WEBHOOK_SIGNING_SECRET")
-    STRIPE_SUPPORT_EMAIL = SUPPORT_EMAIL
 
 from .project import *
