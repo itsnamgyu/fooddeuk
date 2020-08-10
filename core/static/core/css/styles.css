@@ -95,3 +95,26 @@ p {
 a:hover {
   text-decoration: none;
 }
+
+.btn {
+  border-radius: 0;
+}
+
+.btn-back {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.btn-outline-white {
+  background: none;
+  font-weight: 300;
+  color: white;
+  border: 1px solid white;
+}
+
+.btn-outline-white:hover,
+.btn-outline-white.active {
+  background: white;
+  color: black;
+}

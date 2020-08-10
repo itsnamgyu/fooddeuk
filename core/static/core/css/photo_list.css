@@ -1,0 +1,67 @@
+.photo-list-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.photo-list-stat {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #666;
+}
+
+.photo-list-user {
+  color: #666;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.photo-list-header {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #444;
+}
+
+.photo-listing {
+  border: 1px solid #eee;
+  margin: 0 -0.25rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05), 0 8px 32px rgba(0, 0, 0, 0.05),
+  0 8px 64px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  overflow: hidden;
+}
+
+.photo-listing:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1), 0 12px 64px rgba(0, 0, 0, 0.1),
+  0 12px 128px rgba(0, 0, 0, 0.1);
+}
+.photo-listing .content {
+  padding: 1rem;
+}
+
+.photo-listing .title {
+  color: black;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.photo-listing .rank {
+  color: #888;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.photo-listing .stat {
+  color: #666;
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+}
+
+.photo-listing .preview {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+

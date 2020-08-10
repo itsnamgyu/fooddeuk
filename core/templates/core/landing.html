@@ -18,16 +18,16 @@
       <div class="container">
         <div class="title">Fooddeuk</div>
         <div class="subtitle mb-3">Fooddeuk is love. Fooddeuk is life.</div>
-        <!--<a href="https://google.com" class="btn btn-landing">
+        <a href="{% url 'core:photo-list' %}" class="btn btn-landing">
           Vote Now<i class="fas fa-chevron-right ml-2"></i>
-        </a>-->
+        </a>
         <a href="https://github.com/itsnamgyu/fooddeuk" class="btn btn-landing">
           <i class="fas fa-star mr-2"></i>Star on Github
         </a>
       </div>
     </div>
     <div class="landing-copyright">
-      {% now 'Y' %} Fooddeuk © All rights reserved.
+      © {% now "Y" %} Fooddeuk. All rights reserved.
     </div>
   </div>
 

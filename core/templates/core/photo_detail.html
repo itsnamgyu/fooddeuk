@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/navbar.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/header.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/photo.css' %}">
+{% endblock head %}
+
+{% block body %}
+  <div class="background">
+    <div class="container py-4">
+      <a href="{% url 'core:photo-list' %}" class="btn btn-back pl-0 text-white"><i
+          class="fas fa-chevron-left mr-2"></i>Back</a>
+      <div class="title">Photo {{ photo.id }}</div>
+      <div class="name mb-4">{{ photo.name }}</div>
+      <div class="photo-wrapper">
+        {% if previous_id %}
+          <a href="{% url 'core:photo-detail' previous_id %}" class="photo-left"></a>
+        {% endif %}
+        {% if next_id %}
+          <a href="{% url 'core:photo-detail' next_id %}" class="photo-right"></a>
+        {% endif %}
+        <img class="photo mb-4" src="{{ photo.src }}">
+      </div>
+      <div class="text-center">
+        <form method="post" class="d-inline-block">
+          {% csrf_token %}
+          <input name="selection" value="BD" hidden>
+          <button class="btn btn-outline-white {% if form.selection.initial == 'BD' %}active {% endif %}">Bad (1)</button>
+        </form>
+        <form method="post" class="d-inline-block mx-1 mx-md-4">
+          {% csrf_token %}
+          <input name="selection" value="OK" hidden>
+          <button class="btn btn-outline-white {% if form.selection.initial == 'OK' %}active {% endif %}">Okay (3)</button>
+        </form>
+        <form method="post" class="d-inline-block">
+          {% csrf_token %}
+          <input name="selection" value="GD" hidden>
+          <button class="btn btn-outline-white {% if form.selection.initial == 'GD' %}active {% endif %}">Good (5)</button>
+        </form>
+      </div>
+    </div>
+    {% bootstrap_form form %}
+  </div>
+{% endblock body %}
+{% block body_script %}
+{% endblock body_script %}

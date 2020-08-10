@@ -1,0 +1,46 @@
+.background {
+  background: black;
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.name {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: white;
+}
+
+.photo {
+  width: calc(100% + 2rem);
+  height: auto;
+  margin: 0 -1rem;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+.photo-wrapper {
+  position: relative;
+}
+
+.photo-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+}
+
+.photo-right{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+}
