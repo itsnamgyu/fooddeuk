@@ -25,13 +25,11 @@ class PhotoListView(LoginRequiredMixin, TemplateView):
     template_name = "core/photo_list.html"
 
     def get_photo_list(self):
-        bad_votes = Vote.objects.filter(selection=Vote.BAD, photo=OuterRef("id")).values("id")
-        okay_votes = Vote.objects.filter(selection=Vote.OKAY, photo=OuterRef("id")).values("id")
-        good_votes = Vote.objects.filter(selection=Vote.GOOD, photo=OuterRef("id")).values("id")
-        photos = Photo.objects.all().annotate(bad=Count(Subquery(bad_votes)), okay=Count(Subquery(okay_votes)),
-                                              good=Count(Subquery(good_votes)))
+        photos = Photo.objects.all().annotate(bad=Count("vote", filter=Q(vote__selection=Vote.BAD)),
+                                              okay=Count("vote", filter=Q(vote__selection=Vote.OKAY)),
+                                              good=Count("vote", filter=Q(vote__selection=Vote.GOOD)))
         if self.request.GET.get("sort") == "rank":
-            photos = photos.order_by("-total")
+            photos = photos.order_by("-average")
         votes = Vote.objects.filter(user=self.request.user).all()
         votes_by_photo = {vote.photo_id: vote for vote in votes}
         for photo in photos:
