@@ -27,14 +27,14 @@ class Photo(models.Model):
         if self.id > 982:
             return ""
         else:
-            return static("core/img/photos/grad{:03d}.jpg".format(self.id))
+            return static("core/media/grad/grad{:03d}.jpg".format(self.id))
 
     @property
     def thumb_src(self):
         if self.id > 982:
             return ""
         else:
-            return static("core/img/thumbnails/grad{:03d}.jpg".format(self.id))
+            return static("core/media/grad_thumb/grad{:03d}.jpg".format(self.id))
 
     @property
     def name(self):
