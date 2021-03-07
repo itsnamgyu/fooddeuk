@@ -39,9 +39,11 @@ class PhotoListView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         User = get_user_model()
         context = super().get_context_data(**kwargs)
+        max_votes = Photo.objects.count() * User.objects.count()
         context["photo_list"] = self.get_photo_list()
         context["total_votes"] = Vote.objects.count()
-        context["progress"] = Vote.objects.count() / 2020 * 100
+        context["max_votes"] = max_votes
+        context["progress"] = Vote.objects.count() / max_votes * 100
         context["users"] = User.objects.annotate(Count("vote")).order_by("-vote__count")
         context["sort_by_rank"] = self.request.GET.get("sort") == "rank"
         return context
