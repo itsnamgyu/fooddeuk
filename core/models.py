@@ -24,24 +24,21 @@ class Photo(models.Model):
 
     @property
     def src(self):
-        if self.id > 101:
+        if self.id > 982:
             return ""
         else:
-            return static("core/img/photos/food{:03d}.jpg".format(self.id))
+            return static("core/img/photos/grad{:03d}.jpg".format(self.id))
 
     @property
     def thumb_src(self):
-        if self.id > 101:
+        if self.id > 982:
             return ""
         else:
-            return static("core/img/thumbnails/food{:03d}.jpg".format(self.id))
+            return static("core/img/thumbnails/grad{:03d}.jpg".format(self.id))
 
     @property
     def name(self):
-        index = self.id + 240085
-        if index > 240145:
-            index += 2
-        return "0808-{}.jpg".format(index)
+        return "서강대단체{}.jpg".format(self.id)
 
 
 class Vote(models.Model):
